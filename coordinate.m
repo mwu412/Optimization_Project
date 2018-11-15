@@ -1,28 +1,7 @@
-function [epsilon, alfa, beta, x, y] = coordinate( t )  % theta
+% convert polar to cartesian coordinate
+function [o, x_arr, y_arr] = coordinate(t_arr)  % theta
 
-% user defined parameters
-a = 10;
-b = 8;
-alfa = 10;
-beta = 1;
-epsilon = 0.1;
+[o, r_arr] = shape(t_arr);
 
-% parameters
-e = sqrt(1-b^2/a^2);
-
-function f_r = r(input) 
-    f_r = a * (1 - e^2) / (1 - e * cos(input));
-end
-
-x = zeros(1,3);
-y = zeros(1,3);
-
-for i = 0:2
-    x(i) = r(t(i)) * cos(t(i)); 
-end
-
-for i = 0:2
-    y(i) = r(t(i)) * sin(t(i)); 
-end
-
-end
+x_arr = r_arr .* cos(t_arr);
+y_arr = r_arr .* sin(t_arr);

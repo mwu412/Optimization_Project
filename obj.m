@@ -1,25 +1,44 @@
-function f = obj( t )  % theta
+function f = obj( t_arr )  % theta
 
-[epsilon, alfa, beta, x, y] = coordinate( t );
+[o, x, y] = coordinate(t_arr);
 
-
+%% d
     dd = zeros(1,3);
-    for i = 0:2
-        if i==2
-            j = 0;
+    for i = 1:3
+        if i==3
+            j = 1;
         else 
             j = i+1;
         end
         m = (y(j)-y(i)) / (x(j)-x(i));
-        xx = (m * x(i) - y(i)) / (x(i) + 1/m);
-        yy = m * (y(i) - m * x(i)) / (x(i) + 1/m);
-        dd(i) = xx^2 + yy^2;
+        xx = (m * x(i) - y(i) + o(2) + o(1)/m) / (m + 1/m);
+        yy = (o(1) - xx)/m + o(2);
+        dd(i) = (xx-o(1))^2 + (yy-o(2))^2;
     end
-    min_d = min(dd);
+    
+    if min(dd)==0
+        d = 0.1;
+    else
+        d = min(dd) * 0.001;
+    end
+
+%% Fi
+syms f1 f2 f3
+eqn1 = (x(1)-o(1))*f1 + (x(2)-o(1))*f2 + (x(3)-o(1))*f3 == 0;
+eqn2 = (y(1)-o(2))*f1 + (y(2)-o(2))*f2 + (y(3)-o(2))*f3 == 0;
+eqn3 = f1 + f2 + f3 == 100;
+
+sol = solve([eqn1, eqn2, eqn3], [f1, f2, f3]);
+
+sol_f1 = double(sol.f1);
+sol_f2 = double(sol.f2);
+sol_f3 = double(sol.f3);
 
 
-
-f = alfa / min_d;
+%% obj 
+alfa = 1;
+beta = 1;
+f = alfa * 1 / d + beta *((sol_f1/100-1/3)^2 + (sol_f2/100-1/3)^2 + (sol_f3/100-1/3)^2);
 
 end
 
