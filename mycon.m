@@ -15,6 +15,13 @@ c1 =  -a + 0.001;
 c2 =  -b + 0.001;
 c3 = a + b - 1 + 0.001;
 
+%% the force should be positive
+fc = force(o,x,y);
+
+c4 = -fc(1);
+c5 = -fc(2);
+c6 = -fc(3);
+
 %% constrains
-c = [c1, c2, c3];
+c = [c1, c2, c3, c4, c5, c6];
 ceq = [];
