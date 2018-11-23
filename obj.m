@@ -19,16 +19,27 @@ function f = obj( t_arr )  % theta
     if min(dd)==0
         d = 0.1;
     else
-        d = min(dd) 
+        d = min(dd); 
     end
 
 
 fc = force(o,x,y);
-fc/100
+
+global load
+global d_min
+global count
+
+d_min(:,count) = d;
+
+for i = 1:3
+   load(i,count) = fc(i)/100; 
+end
+
+count = count + 1;
 
 %% obj 
 alfa = 1;
-beta = 1000;
+beta = 100;
 f = alfa * 1 / d + beta *((fc(1)/100-1/3)^2 + (fc(2)/100-1/3)^2 + (fc(3)/100-1/3)^2);
 
 end
