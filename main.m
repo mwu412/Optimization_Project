@@ -7,8 +7,8 @@ clc
 global load
 global d_min
 global count
-load = zeros(3,400);
-d_min = zeros(1,400);
+load = zeros(3,700);
+d_min = zeros(1,700);
 count = 1;
 
 %% fmincon
@@ -30,7 +30,7 @@ options = optimoptions('fmincon',...
     'Display','iter','Algorithm','sqp',...
     'MaxIterations',1500,'MaxFunctionEvaluations',1500);
 % x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
-[t_optm,fval,exitflag] = fmincon('obj',t0,[],[],[],[],lb,ub,'mycon',options)
+[t_optm,fval,exitflag] = fmincon('obj',t0,[],[],[],[],lb,ub,'mycon_uncertainty',options)
 
 toc
 % plot
