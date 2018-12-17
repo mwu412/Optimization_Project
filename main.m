@@ -7,8 +7,8 @@ clc
 global load
 global d_min
 global count
-load = zeros(3,400);
-d_min = zeros(1,400);
+load = zeros(3,600);
+d_min = zeros(1,600);
 count = 1;
 
 %% fmincon

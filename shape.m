@@ -6,7 +6,7 @@ o = [5,1];
 
 %% shape: ellipse
 % user defined parameters
-a = 15;
+a = 10;
 b = 4;
 
 % parameters
